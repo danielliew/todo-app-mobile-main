@@ -1,21 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { Text, View, Button } from "react-native";
+import useAuth from "./src/hooks/useAuth";
+import { styles } from "./src/styles";
 
 export default function App() {
-  return (
+  const { user, onLogin, onLogout } = useAuth();
+
+  return user.loginToken ? (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
+      <Text>Open up App.tsx to start working on your app!</Text>
+      <Button title="Sign Out" onPress={onLogout} />
+    </View>
+  ) : (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <Button title="Sign In" onPress={onLogin} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
